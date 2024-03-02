@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Jack Ke, 2024/01 ; Dollar-cost Average Calculator -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>定期定額估算</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <style>
+    label  { display: inline-block; width: 120px; margin-bottom: 5px; }
+    input  { font-size:1.0em; width: 120px; box-sizing: border-box; margin-bottom: 5px; }
+    select { width: 120px; box-sizing: border-box; margin-bottom: 5px; }
+  </style>  
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $(function() {
+      // Datepicker for startDate
+      //$("#startDate, #endDate, #buyBackDate").datepicker({ 
+      //  dateFormat: "yymmdd", changeMonth: true, changeYear: true });
+      $('form').submit(function(e)
+      {
+        // Prevent the form from submitting in the traditional way
+        e.preventDefault();      
+        var formData = $(this).serialize();   // Get form data    
+        $.post('dca2.php', formData, function(rep)
+        {
+          // Handle JSON response from the server
+          var output = '<h3>[' + rep.productID + ']<br />' +
+            'Ratio  = %' + rep.ratio + '<br />' +
+            'Profit = $' + rep.profit + '<br />' +
+            'Base   = $' + rep.base + '<br />' +
+            'Income = $' + rep.income + '<br />' + 
+            'Units  = ' + rep.totalUnits + '</h3>';
+          $('#rtnData').html(output);
+        }, 'json');
+      });      
+    });
+  </script>
+</head>
+<body>
+<div style="margin-bottom: 10px; text-decoration:underline;text-align: center;">Dollar Cost Averaging</div>
+  <form action="dca2.php" method="post">
+    <!-- (1) Product ID -->
+    <label for="productID">PID (基金產品):</label>
+    <select name="productID" id="productID">
+      <option value="acdd04">安聯台科_acdd04</option>
+      <option value="acps10">統一奔騰_acps10</option>
+      <option value="acps02">統一黑馬_acps02</option>
+      <option value="ackh19">野村高科_ackh19</option>
+      <option value="acic01">野村優質_acic01</option>
+      <option value="0050">元大卓越_0050</option>
+      <option value="00878">國泰高息_00878</option>
+      <option value="00646">元大標普_00646</option>
+      <option value="VTI">VTI 整體市場</option>
+      <option value="SPY">S&P 500</option>
+      <option value="SPXL">S&P 500 3X</option>
+      <option value="QQQ">NASDAQ 100</option>
+      <option value="TQQQ">NASDAQ 100 3X</option>
+    </select>
+    <br />
+    <!-- (2) Period Date and Investment -->
+    <label for="periodInvest">Invest (月投額) $:</label>
+    <input type="text" name="periodInvest" id="periodInvest" value="10000" maxlength="8" required autocomplete="off">
+    <br />    
+    <label for="periodDate">PDate (定投日):</label>
+    <input type="text" name="periodDate" id="periodDate" value="15" maxlength="20" required autocomplete="off">
+    <br />
+    <!-- (3) Start Date, End Date, Buy Back Date -->
+    <label for="startDate">SDate (起始日):</label>
+    <input type="tel" name="startDate" id="startDate" required autocomplete="off">
+    <br />
+    <label for="endDate">EDate (終止日):</label>
+    <input type="tel" name="endDate" id="endDate" required autocomplete="off">
+    <br />
+    <label for="buyBackDate">BBack (買回日):</label>
+    <input type="tel" name="buyBackDate" id="buyBackDate" required autocomplete="off">
+    <br />
+    <!-- (4) Submit Button -->
+    <input type="submit" value="Submit">
+  </form>
+  <pre id="rtnData"></pre>
+</body>
+</html>
