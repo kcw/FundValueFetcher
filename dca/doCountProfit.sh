@@ -17,12 +17,11 @@ arg5=$5
 
 php dca.php acdd04  "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
 php dca.php acps10  "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
-php dca.php acps02  "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
 php dca.php ackh19  "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
 php dca.php acic01  "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
+php dca.php 006208  "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
 php dca.php 0050    "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
 php dca.php VTI     "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
 php dca.php SPY     "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
 php dca.php QQQ     "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
-php dca.php TQQQ    "$arg1" "$arg2" "$arg3" "$arg4" "$arg5"
 

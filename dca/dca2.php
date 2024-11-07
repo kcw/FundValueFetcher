@@ -67,7 +67,7 @@ function getValueByDate($productID, $periodDateAry)
   foreach ( $periodDateAry as $targetDay )
   {
     $key = array_search($targetDay, $date_array);
-    if ($key !== false)
+    if ($key !== false)                               //targetDay HIT
     {
       //echo "Date: " . $date_array[ $key ] . PHP_EOL;
       //echo "Price: ". $value_array[ $key ] . PHP_EOL;
@@ -78,14 +78,16 @@ function getValueByDate($productID, $periodDateAry)
       $lower_key = null;
       foreach ($date_array as $index => $value)
       {
-        if ($value <= $targetDay) $lower_key = $index;
+        if ($value <= $targetDay) 
+          $lower_key = $index;                       // lower_key point at the (targetDay-1)
         else break;
       }
       if ($lower_key !== null)
       {
-        //echo "Date: " . $date_array[ $lower_key ] . PHP_EOL;
-        //echo "Price: ". $value_array[ $lower_key ] . PHP_EOL;
-        $priceAry[] = $value_array[ $lower_key ];
+        if (isset($value_array[$lower_key + 1]))     // targetDay NOT hit, use next day price
+          $priceAry[] = $value_array[ $lower_key+1 ];
+        else
+          $priceAry[] = $value_array[$lower_key];
       }
       else die('Value not found' . PHP_EOL);
     }
@@ -121,7 +123,9 @@ $response = array
   'ratio'           => round(($ratio - 1) * 100, 1),
   'profit'          => round($profit, 1),
   'base'            => $base,
-  'income'          => round(($buyBackPriceAry[0] * $totalUnits), 1)
+  'income'          => round(($buyBackPriceAry[0] * $totalUnits), 1),
+  'debug1'          => $periodDateAry,
+  'debug2'          => $periodPriceAry      // For people recheck usage
 );
 echo json_encode($response);
 

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 2024 Nov. Jack - Render fund performance ratio | backend:fundPerfRatioFetch.php -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fund Performance Comparison</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+   body  { display: flex; flex-direction: column; align-items: center;  margin: 0; width:100%; } 
+   label { display: inline-block; width: 80px; margin-bottom: 5px; }
+   input { font-size:1.0em; width: 120px; box-sizing: border-box; margin-bottom: 5px; }
+  </style>	
+</head>
+<body>
+    <h2>Fund Performance Comparison</h2>
+    <form id="dateForm">
+    <div class="form-group">
+        <label for="start_date">起始日期</label>
+        <input type="text" id="start_date" name="start_date" value="2023-01-01" required autocomplete="off" onfocus="clearInput(this)">
+    </div>
+    <div class="form-group">
+        <label for="end_date">結束日期</label>
+        <input type="text" id="end_date" name="end_date" value="2024-01-01" required autocomplete="off" onfocus="clearInput(this)">
+    </div>
+    <div class="form-group">
+        <label for="step">取樣頻率</label>
+        <input type="text" id="step" name="step" value="5" autocomplete="off" onfocus="clearInput(this)">
+    </div>
+    <button style="margin-bottom: 30px; margin-top: 5px;" type="submit">Submit</button>
+    </form>
+
+    <div style="max-width: 600px;">
+        <canvas id="myChart" width="450" height="300" style="width: 80%; height: 80%;"></canvas>
+    </div>
+
+    <script>
+      let myChart; // Declare a variable to hold the chart reference      
+      function clearInput(element) {  element.value = ''; }
+
+      function getStartOfYear() { const today = new Date(); const year = today.getFullYear(); return `${year}-01-01`; }      
+      function getLastYear()    { const today = new Date(); const year = today.getFullYear()-1; return `${year}-01-01`; }      
+      function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');        // Add leading zero
+        return `${year}-${month}-${day}`;
+      }      
+
+      // set the begin-end default value      
+      document.getElementById('start_date').value = getStartOfYear();  //getLastYear();
+      document.getElementById('end_date').value   = getCurrentDate();
+      
+      document.getElementById('dateForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        fetch('fundPerfRatioFetch.php', { method: 'POST', body: formData })
+        .then(response => response.json())
+        .then(data => { drawChart(data); })
+        .catch(error => console.error('Error:', error));
+      });
+
+      function drawChart(data) {
+        const ctx = document.getElementById('myChart').getContext('2d');          
+        if (myChart) { myChart.destroy(); }
+    
+          // Create a new chart
+          myChart = new Chart(ctx, {
+           type: 'line',
+           data: 
+           {
+            labels: data.dates,
+            datasets: 
+            [
+              {
+                label: '安聯台科', data: data.ratioA, 
+			    borderColor: 'rgba(75, 192, 192, 1)', backgroundColor: 'rgba(75, 192, 192, 0.2)', borderWidth: 2
+              },
+              {
+                label: '統一奔騰', data: data.ratioB,
+                borderColor: 'rgba(255, 99, 132, 1)', backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 2
+              },
+              {
+                label: '台灣50', data: data.ratioC,
+                borderColor: 'rgba(153, 102, 255, 1)', backgroundColor: 'rgba(153, 102, 255, 0.2)', borderWidth: 2
+				//borderColor: 'rgba(255, 159, 64, 1)', backgroundColor: 'rgba(255, 159, 64, 0.2)',
+              }
+            ]
+           },
+           options: 
+           { 
+             responsive: true,
+             scales: { y: { beginAtZero: true, ticks: { callback: function(value) { return value + '%'; } } } },
+			 // for control legend width and font size
+             plugins: {	legend: { display: true, position: 'top', labels: { font: { size: 12, }, boxWidth: 10, padding: 5, } } }             
+           }
+          });
+    }
+    </script>
+</body>
+</html>

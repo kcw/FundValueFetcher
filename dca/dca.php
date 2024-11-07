@@ -82,9 +82,10 @@ function getValueByDate($productID, $periodDateAry)
       }
       if ($lower_key !== null)
       {
-        //echo "Date: " . $date_array[ $lower_key ] . PHP_EOL;
-        //echo "Price: ". $value_array[ $lower_key ] . PHP_EOL;
-        $priceAry[] = $value_array[ $lower_key ];
+        if (isset($value_array[$lower_key + 1]))     // targetDay NOT hit, use next day price
+          $priceAry[] = $value_array[ $lower_key+1 ];
+        else
+          $priceAry[] = $value_array[ $lower_key ];
       }
       else
         die('Value not found' . PHP_EOL);

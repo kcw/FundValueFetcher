@@ -97,15 +97,15 @@ getFundValue("tse_0050.tw", "0050", "ETF" );
 getFundValue("ACDD04", "安聯台科*", "FUND");
 getFundValue("ACPS10", "統一奔騰*", "FUND");
 getFundValue("ACPS02", "統一黑馬" , "FUND");
-getFundValue("ackh19", "野村高科*", "FUND");
-getFundValue("acic01", "野村優質" , "FUND");
+getFundValue("acic01", "野村優質", "FUND");
 getFundValue("ACIC04", "野村成長" , "FUND");
 // end of PHP
 ?>
   </tbody></table>
   <h2 style="text-align: center;">
   <a style="text-decoration: none;" href="about:blank">#</a> | 
-  <a style="text-decoration: none;" href="dca/" target="_blank">$</a>
+  <a style="text-decoration: none;" href="dca/" target="_blank">$</a> |
+  <a style="text-decoration: none;" href="dca/fundPerfChartRender.html" target="_blank">%</a>
   </h2>
 </body>
 </html>

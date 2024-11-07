@@ -1,15 +1,15 @@
 <!doctype html>
-
+<!-- Jack 2024, Jan - Get everyday fund value -->
 <html>
 <head>
-<meta charset="utf-8" />
-<link rel="icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="favicon.png" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<title>奔向月球</title>
-<script>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <title>奔向月球</title>
+  <script>
   $(document).ready(
   function() {
     var currentTime = new Date();
@@ -27,21 +27,22 @@
     });
   });
   </script>
-<style>
+  <style>
     td {text-align: center;}
     table#example { margin-top: 0%; font-size: 2em; font-weight: bolder; width: 90%; }  /* for iPhone width */
     @media only screen and (min-width: 1200px) { table#example { width: 45%; } }        /* for PC desktop width */
   </style>
 </head>
 <body>
-<h1 title="更新時間" style="text-align: center;">2024-03-02 18:45</h1>
-<table id="example" class="display cell-border">
-<thead><tr><th>ID</th><th>%</th><th>VAL</th></tr></thead>
-<tbody>
-<tr><td>0050</td><td>-0.35</td><td>20240301 | 142.8</td></tr><tr><td>安聯台科*</td><td>2.19</td><td>20240301 | 197.76</td></tr><tr><td>統一奔騰*</td><td>2.36</td><td>20240301 | 247.29</td></tr><tr><td>統一黑馬</td><td>2.27</td><td>20240301 | 218.27</td></tr><tr><td>野村高科*</td><td>3.01</td><td>20240301 | 40.7</td></tr><tr><td>野村優質</td><td>2.21</td><td>20240301 | 148.73</td></tr><tr><td>野村成長</td><td>2.44</td><td>20240301 | 122.39</td></tr> </tbody></table>
-<h2 style="text-align: center;">
-<a style="text-decoration: none;" href="about:blank">#</a> |
-<a style="text-decoration: none;" href="dca/" target="_blank">$</a>
-</h2>
+  <h1 title="更新時間" style="text-align: center;">2024-11-07 15:10</h1>
+  <table id="example" class="display cell-border">
+  <thead><tr><th>ID</th><th>%</th><th>VAL</th></tr></thead>
+  <tbody>
+<tr><td>0050</td><td style='color:red;'>1.15</td><td>20241107 | 197.45</td></tr><tr><td>安聯台科*</td><td>1.44</td><td>20241106 | 223.67</td></tr><tr><td>統一奔騰*</td><td style='color:red;'>0.29</td><td>20241107 | 260.97</td></tr><tr><td>統一黑馬</td><td>1.22</td><td>20241106 | 230.39</td></tr><tr><td>野村優質</td><td>1.14</td><td>20241106 | 152.83</td></tr><tr><td>野村成長</td><td>1.75</td><td>20241106 | 125.72</td></tr>  </tbody></table>
+  <h2 style="text-align: center;">
+  <a style="text-decoration: none;" href="about:blank">#</a> | 
+  <a style="text-decoration: none;" href="dca/" target="_blank">$</a> |
+  <a style="text-decoration: none;" href="dca/fundPerfChartRender.html" target="_blank">%</a>
+  </h2>
 </body>
 </html>
